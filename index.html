@@ -1,45 +1,91 @@
-<div class="glass w-full max-w-md rounded-[35px] p-8 shadow-2xl border border-blue-500/30">
-    
-    <div class="flex justify-around mb-6 border-b border-slate-700 pb-2">
-        <button onclick="toggleAuth('login')" id="login-tab" class="text-blue-500 border-b-2 border-blue-500 pb-1 font-bold">تسجيل دخول</button>
-        <button onclick="toggleAuth('signup')" id="signup-tab" class="text-gray-400 pb-1 font-bold">حساب جديد</button>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdelnaseer Pro | المنصة التعليمية</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap');
+        body { font-family: 'Cairo', sans-serif; background-color: #020617; color: white; overflow-x: hidden; }
+        .glow-text { text-shadow: 0 0 20px #3b82f6, 0 0 40px #1d4ed8; }
+        .glass { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(59, 130, 246, 0.3); }
+        .input-box { background: #010413; border: 1px solid #1e293b; transition: 0.3s; }
+        .input-box:focus { border-color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-10 px-4">
+
+    <h1 class="text-6xl md:text-8xl font-black text-blue-500 glow-text mb-10 text-center">Abdelnaseer Pro</h1>
+
+    <div class="glass w-full max-w-4xl rounded-[40px] p-8 mb-10 flex flex-col md:flex-row items-center gap-8 text-right">
+        <div class="relative">
+            <img src="IMG-20251206-WA0009.jpg" alt="eng Abdelnaseer" class="w-48 h-48 rounded-full border-4 border-blue-600 object-cover shadow-2xl shadow-blue-500/20">
+            <div class="absolute bottom-2 right-2 bg-blue-600 px-3 py-1 rounded-lg text-xs font-bold">eng Abdelnaseer</div>
+        </div>
+        <div class="flex-1">
+            <h2 class="text-4xl font-black text-blue-400 mb-4">eng Abdelnaseer</h2>
+            <p class="text-xl font-bold leading-relaxed mb-4">مبرمج وخبير الأمن السيبراني ومطور برامج ومحاضر لدى أكاديمية مصر للعلوم التكنولوجية 2025</p>
+            <p class="text-gray-500 text-sm font-mono border-t border-slate-800 pt-4 italic">
+                Programmer, Cybersecurity Expert, Software Developer, and Lecturer at Egypt Academy for Technological Sciences 2025.
+            </p>
+        </div>
     </div>
 
-    <h3 id="auth-title" class="text-xl font-bold mb-6 text-center text-white">مرحباً بك مجدداً</h3>
-
-    <div class="space-y-4">
-        <input type="email" id="email" placeholder="البريد الإلكتروني" class="w-full bg-slate-950 border border-slate-800 p-4 rounded-xl outline-none focus:border-blue-500 text-right">
-        <input type="password" id="pass" placeholder="كلمة المرور" class="w-full bg-slate-950 border border-slate-800 p-4 rounded-xl outline-none focus:border-blue-500 text-right">
+    <div class="glass w-full max-w-md rounded-[35px] p-8 shadow-2xl">
         
-        <button id="auth-btn" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-xl font-black transition-all shadow-lg shadow-blue-500/20">
-            دخول
-        </button>
+        <div class="flex justify-around mb-8 border-b border-slate-800 pb-2">
+            <button onclick="toggleAuth('login')" id="login-tab" class="text-blue-500 border-b-2 border-blue-500 pb-2 font-black transition-all">تسجيل الدخول</button>
+            <button onclick="toggleAuth('signup')" id="signup-tab" class="text-gray-500 pb-2 font-black transition-all">إنشاء حساب جديد</button>
+        </div>
+
+        <h3 id="form-title" class="text-2xl font-bold mb-8 text-center">تسجيل الدخول | Login</h3>
+
+        <div class="space-y-5">
+            <div class="relative">
+                <input type="email" id="email" placeholder="البريد الإلكتروني (Email)" class="w-full input-box p-4 rounded-2xl text-right outline-none">
+            </div>
+            <div class="relative">
+                <input type="password" id="pass" placeholder="كلمة المرور (Password)" class="w-full input-box p-4 rounded-2xl text-right outline-none">
+            </div>
+
+            <button id="main-btn" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black text-xl transition-all shadow-lg shadow-blue-500/20">
+                دخول
+            </button>
+        </div>
+
+        <div class="mt-8 flex flex-col items-center gap-4">
+            <p class="text-gray-500 text-xs uppercase tracking-widest">أو عبر جوجل</p>
+            <button class="bg-white p-3 rounded-full hover:scale-110 transition shadow-lg">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/actionbar/google.svg" width="24">
+            </button>
+        </div>
     </div>
 
-    <p class="text-gray-500 text-xs my-4 text-center uppercase tracking-widest">أو عبر</p>
-    <div class="flex justify-center gap-4">
-        <button onclick="loginWithGoogle()" class="p-3 bg-white rounded-full hover:scale-110 transition"><img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/actionbar/google.svg" width="20"></button>
-    </div>
-</div>
+    <p class="mt-10 text-gray-600 text-xs font-mono">Abdelnaseer Pro - Cyber Security Expert 2025 ©</p>
 
-<script>
-    // وظيفة التبديل بين الدخول والإنشاء
-    function toggleAuth(type) {
-        const title = document.getElementById('auth-title');
-        const btn = document.getElementById('auth-btn');
-        const loginTab = document.getElementById('login-tab');
-        const signupTab = document.getElementById('signup-tab');
+    <script>
+        // دالة التبديل السحرية
+        function toggleAuth(mode) {
+            const title = document.getElementById('form-title');
+            const btn = document.getElementById('main-btn');
+            const loginTab = document.getElementById('login-tab');
+            const signupTab = document.getElementById('signup-tab');
 
-        if (type === 'signup') {
-            title.innerText = "إنشاء حساب طالب جديد";
-            btn.innerText = "إنشاء حساب الآن";
-            signupTab.className = "text-blue-500 border-b-2 border-blue-500 pb-1 font-bold";
-            loginTab.className = "text-gray-400 pb-1 font-bold";
-        } else {
-            title.innerText = "مرحباً بك مجدداً";
-            btn.innerText = "دخول";
-            loginTab.className = "text-blue-500 border-b-2 border-blue-500 pb-1 font-bold";
-            signupTab.className = "text-gray-400 pb-1 font-bold";
+            if (mode === 'signup') {
+                title.innerText = "إنشاء حساب جديد | Sign Up";
+                btn.innerText = "إنشاء الحساب الآن";
+                btn.classList.replace('bg-blue-600', 'bg-green-600');
+                signupTab.className = "text-blue-500 border-b-2 border-blue-500 pb-2 font-black transition-all";
+                loginTab.className = "text-gray-500 pb-2 font-black transition-all";
+            } else {
+                title.innerText = "تسجيل الدخول | Login";
+                btn.innerText = "دخول";
+                btn.classList.replace('bg-green-600', 'bg-blue-600');
+                loginTab.className = "text-blue-500 border-b-2 border-blue-500 pb-2 font-black transition-all";
+                signupTab.className = "text-gray-500 pb-2 font-black transition-all";
+            }
         }
-    }
-</script>
+    </script>
+</body>
+</html>
