@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول | Abdelnaseer Pro</title>
+    <title>بوابة الدخول | Abdelnaseer Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&display=swap');
         body { font-family: 'Cairo', sans-serif; background: #020617; color: white; }
@@ -14,29 +13,34 @@
 </head>
 <body class="min-h-screen flex items-center justify-center p-6">
 
-    <div class="glass w-full max-w-md rounded-[35px] p-10 shadow-2xl border-t-4 border-blue-500 text-center">
-        <h2 class="text-3xl font-black mb-8 text-blue-400">دخول منصة المحاضرات</h2>
+    <div class="glass w-full max-w-md rounded-[35px] p-10 shadow-2xl border-t-4 border-blue-600 text-center">
+        <h2 class="text-3xl font-black mb-8 text-blue-400">دخول الطلاب</h2>
 
-        <div class="space-y-4">
+        <div id="auth-ui" class="space-y-4">
             <button id="google-btn" class="w-full bg-white text-black p-4 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-gray-200 transition">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/actionbar/google.svg" width="20">
-                التسجيل بواسطة Google
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/actionbar/google.svg" width="20"> التسجيل بواسطة Google
             </button>
 
-            <button onclick="alert('جاري تفعيل نظام التحقق برقم الهاتف قريباً')" class="w-full bg-green-600 text-white p-4 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-green-700 transition">
-                <i class="fas fa-phone-alt"></i>
-                التسجيل برقم الهاتف
-            </button>
+            <div class="relative my-6"><div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-800"></div></div><div class="relative flex justify-center text-xs"><span class="px-2 bg-[#020617] text-gray-500 uppercase">أو برقم الهاتف</span></div></div>
+
+            <div id="phone-container">
+                <input type="text" id="phone-number" placeholder="+201xxxxxxxxx" class="w-full bg-slate-950 border border-slate-800 p-4 rounded-xl mb-3 text-left outline-none focus:border-green-500">
+                <div id="recaptcha-container"></div>
+                <button id="send-code" class="w-full bg-green-600 p-4 rounded-xl font-bold hover:bg-green-700 transition">إرسال كود التحقق</button>
+            </div>
+
+            <div id="otp-container" class="hidden">
+                <input type="text" id="otp-code" placeholder="ادخل الكود المكون من 6 أرقام" class="w-full bg-slate-950 border border-slate-800 p-4 rounded-xl mb-3 text-center outline-none">
+                <button id="verify-code" class="w-full bg-blue-600 p-4 rounded-xl font-bold">تأكيد الدخول</button>
+            </div>
         </div>
-
-        <p class="mt-8 text-xs text-gray-500 font-mono italic">Secure Authentication via Firebase SDK v10</p>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-        // بياناتك اللي ظهرت لك
         const firebaseConfig = {
             apiKey: "AIzaSyDdJoav1YkTyldp5_Z8z7x_PPxwwr09Z88",
             authDomain: "abdelnaseer-talat-pro.firebaseapp.com",
@@ -44,25 +48,53 @@
             storageBucket: "abdelnaseer-talat-pro.firebasestorage.app",
             messagingSenderId: "762013161912",
             appId: "1:762013161912:web:7f5a3b8088ce71112f174d",
-            measurementId: "G-TQVB8B1EYG"
+            databaseURL: "https://abdelnaseer-talat-pro-default-rtdb.firebaseio.com" // تأكد من إضافة رابط الداتابيز من Firebase
         };
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getDatabase(app);
 
-        document.getElementById('google-btn').addEventListener('click', () => {
+        // وظيفة تسجيل حركة الزوار (العداد)
+        function logVisit(user) {
+            const visitRef = ref(db, 'visits/' + Date.now());
+            set(visitRef, {
+                name: user.displayName || user.phoneNumber,
+                email: user.email || "Phone Login",
+                time: new Date().toLocaleString()
+            });
+        }
+
+        // --- دخول جوجل ---
+        document.getElementById('google-btn').onclick = () => {
             const provider = new GoogleAuthProvider();
-            signInWithPopup(auth, provider)
-                .then((result) => {
-                    alert("أهلاً بك يا هندسة: " + result.user.displayName);
-                    // بعد الدخول يفتح صفحة الكورسات
-                    window.location.href = "dashboard.html";
-                })
-                .catch((error) => {
-                    console.error(error);
-                    alert("تأكد من تفعيل Google Provider في Firebase Console");
-                });
-        });
+            signInWithPopup(auth, provider).then((result) => {
+                logVisit(result.user);
+                window.location.href = "dashboard.html";
+            });
+        };
+
+        // --- دخول الهاتف ---
+        window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', { 'size': 'invisible' });
+        
+        document.getElementById('send-code').onclick = () => {
+            const phoneNumber = document.getElementById('phone-number').value;
+            const appVerifier = window.recaptchaVerifier;
+            signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+                .then((confirmationResult) => {
+                    window.confirmationResult = confirmationResult;
+                    document.getElementById('phone-container').classList.add('hidden');
+                    document.getElementById('otp-container').classList.remove('hidden');
+                }).catch((error) => alert(error.message));
+        };
+
+        document.getElementById('verify-code').onclick = () => {
+            const code = document.getElementById('otp-code').value;
+            confirmationResult.confirm(code).then((result) => {
+                logVisit(result.user);
+                window.location.href = "dashboard.html";
+            }).catch(() => alert("كود خاطئ!"));
+        };
     </script>
 </body>
 </html>
