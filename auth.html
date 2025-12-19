@@ -5,95 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بوابة الدخول | Abdelnaseer Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&display=swap');
         body { font-family: 'Cairo', sans-serif; background: #020617; color: white; }
         .glass { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(15px); border: 1px solid rgba(59, 130, 246, 0.2); }
+        input { transition: all 0.3s; }
+        input:focus { border-color: #3b82f6; box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-6">
 
-    <div class="glass w-full max-w-md rounded-[35px] p-10 shadow-2xl border-t-4 border-blue-600 text-center">
-        <h2 class="text-3xl font-black mb-8 text-blue-400">دخول الطلاب</h2>
+    <div class="glass w-full max-w-md rounded-[35px] p-8 shadow-2xl border-t-4 border-blue-600 text-center">
+        <h2 class="text-3xl font-black mb-6 text-blue-400">دخول الطلاب</h2>
 
-        <div id="auth-ui" class="space-y-4">
-            <button id="google-btn" class="w-full bg-white text-black p-4 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-gray-200 transition">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/actionbar/google.svg" width="20"> التسجيل بواسطة Google
+        <div class="space-y-3 mb-6">
+            <button id="google-btn" class="w-full bg-white text-black p-3 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-gray-200">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/actionbar/google.svg" width="18"> التسجيل بواسطة Google
             </button>
+        </div>
 
-            <div class="relative my-6"><div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-800"></div></div><div class="relative flex justify-center text-xs"><span class="px-2 bg-[#020617] text-gray-500 uppercase">أو برقم الهاتف</span></div></div>
+        <div class="relative my-6"><div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-800"></div></div><div class="relative flex justify-center text-xs"><span class="px-2 bg-[#020617] text-gray-500 uppercase">أو حساب جديد بريد وباسورد</span></div></div>
 
-            <div id="phone-container">
-                <input type="text" id="phone-number" placeholder="+201xxxxxxxxx" class="w-full bg-slate-950 border border-slate-800 p-4 rounded-xl mb-3 text-left outline-none focus:border-green-500">
-                <div id="recaptcha-container"></div>
-                <button id="send-code" class="w-full bg-green-600 p-4 rounded-xl font-bold hover:bg-green-700 transition">إرسال كود التحقق</button>
+        <div class="space-y-4">
+            <input type="email" id="user-email" placeholder="البريد الإلكتروني" class="w-full bg-slate-950 border border-slate-800 p-4 rounded-xl outline-none text-right">
+            <input type="password" id="user-pass" placeholder="كلمة المرور" class="w-full bg-slate-950 border border-slate-800 p-4 rounded-xl outline-none text-right">
+            
+            <div class="flex gap-3">
+                <button id="signup-btn" class="w-1/2 bg-blue-600/20 text-blue-400 border border-blue-600 p-4 rounded-xl font-bold hover:bg-blue-600 hover:text-white transition">إنشاء حساب</button>
+                <button id="login-btn" class="w-1/2 bg-blue-600 p-4 rounded-xl font-bold hover:bg-blue-700 transition">دخول</button>
             </div>
+        </div>
 
-            <div id="otp-container" class="hidden">
-                <input type="text" id="otp-code" placeholder="ادخل الكود المكون من 6 أرقام" class="w-full bg-slate-950 border border-slate-800 p-4 rounded-xl mb-3 text-center outline-none">
-                <button id="verify-code" class="w-full bg-blue-600 p-4 rounded-xl font-bold">تأكيد الدخول</button>
+        <div class="mt-6 pt-6 border-t border-slate-800">
+            <div id="phone-box">
+                <input type="text" id="phone-number" placeholder="+201xxxxxxxxx" class="w-full bg-slate-950 border border-slate-800 p-3 rounded-xl mb-3 text-left outline-none">
+                <div id="recaptcha-container"></div>
+                <button id="send-code" class="w-full bg-green-600/20 text-green-500 border border-green-500 p-3 rounded-xl font-bold hover:bg-green-600 hover:text-white transition">إرسال كود الهاتف</button>
             </div>
         </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
+        // بياناتك من Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyDdJoav1YkTyldp5_Z8z7x_PPxwwr09Z88",
             authDomain: "abdelnaseer-talat-pro.firebaseapp.com",
             projectId: "abdelnaseer-talat-pro",
             storageBucket: "abdelnaseer-talat-pro.firebasestorage.app",
             messagingSenderId: "762013161912",
-            appId: "1:762013161912:web:7f5a3b8088ce71112f174d",
-            databaseURL: "https://abdelnaseer-talat-pro-default-rtdb.firebaseio.com" // تأكد من إضافة رابط الداتابيز من Firebase
+            appId: "1:762013161912:web:7f5a3b8088ce71112f174d"
         };
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const db = getDatabase(app);
 
-        // وظيفة تسجيل حركة الزوار (العداد)
-        function logVisit(user) {
-            const visitRef = ref(db, 'visits/' + Date.now());
-            set(visitRef, {
-                name: user.displayName || user.phoneNumber,
-                email: user.email || "Phone Login",
-                time: new Date().toLocaleString()
-            });
-        }
+        // --- 1. إنشاء حساب جديد (Email/Pass) ---
+        document.getElementById('signup-btn').onclick = () => {
+            const email = document.getElementById('user-email').value;
+            const pass = document.getElementById('user-pass').value;
+            createUserWithEmailAndPassword(auth, email, pass)
+                .then(() => { alert("مبروك! تم إنشاء حسابك بنجاح"); window.location.href = "dashboard.html"; })
+                .catch((err) => alert("خطأ: " + err.message));
+        };
 
-        // --- دخول جوجل ---
+        // --- 2. تسجيل دخول موجود فعلاً ---
+        document.getElementById('login-btn').onclick = () => {
+            const email = document.getElementById('user-email').value;
+            const pass = document.getElementById('user-pass').value;
+            signInWithEmailAndPassword(auth, email, pass)
+                .then(() => { window.location.href = "dashboard.html"; })
+                .catch((err) => alert("بيانات خاطئة أو المستخدم غير موجود"));
+        };
+
+        // --- 3. دخول جوجل ---
         document.getElementById('google-btn').onclick = () => {
             const provider = new GoogleAuthProvider();
-            signInWithPopup(auth, provider).then((result) => {
-                logVisit(result.user);
-                window.location.href = "dashboard.html";
-            });
-        };
-
-        // --- دخول الهاتف ---
-        window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', { 'size': 'invisible' });
-        
-        document.getElementById('send-code').onclick = () => {
-            const phoneNumber = document.getElementById('phone-number').value;
-            const appVerifier = window.recaptchaVerifier;
-            signInWithPhoneNumber(auth, phoneNumber, appVerifier)
-                .then((confirmationResult) => {
-                    window.confirmationResult = confirmationResult;
-                    document.getElementById('phone-container').classList.add('hidden');
-                    document.getElementById('otp-container').classList.remove('hidden');
-                }).catch((error) => alert(error.message));
-        };
-
-        document.getElementById('verify-code').onclick = () => {
-            const code = document.getElementById('otp-code').value;
-            confirmationResult.confirm(code).then((result) => {
-                logVisit(result.user);
-                window.location.href = "dashboard.html";
-            }).catch(() => alert("كود خاطئ!"));
+            signInWithPopup(auth, provider).then(() => { window.location.href = "dashboard.html"; });
         };
     </script>
 </body>
