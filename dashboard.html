@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>لوحة محاضرات | Abdelnaseer Pro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap');
+        body { font-family: 'Cairo', sans-serif; background: #020617; color: white; }
+        .video-card { background: rgba(30, 41, 59, 0.5); border: 1px solid #1e40af; border-radius: 24px; overflow: hidden; transition: 0.3s; }
+        .video-card:hover { border-color: #3b82f6; transform: translateY(-5px); }
+    </style>
+</head>
+<body class="p-6">
+    <nav class="max-w-7xl mx-auto flex justify-between items-center bg-slate-900/80 p-5 rounded-3xl border border-blue-900/50 mb-10 shadow-xl backdrop-blur-md">
+        <div class="text-2xl font-black text-blue-500">Abdelnaseer Pro</div>
+        <button onclick="window.location.href='index.html'" class="bg-red-600/20 text-red-500 border border-red-500/50 px-6 py-2 rounded-xl font-bold hover:bg-red-600 hover:text-white transition">خروج</button>
+    </nav>
+
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-3xl font-black mb-8 border-r-4 border-blue-600 pr-4">محاضرات الأمن السيبراني 2025</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="video-card shadow-lg shadow-blue-900/10">
+                <div class="aspect-video bg-black flex items-center justify-center">
+                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/tgbNymZ7vqY" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="p-5">
+                    <span class="text-blue-400 text-xs font-bold uppercase tracking-widest">المحاضرة الأولى</span>
+                    <h3 class="text-xl font-bold mt-2">أساسيات حماية السيرفرات</h3>
+                    <p class="text-gray-400 text-sm mt-3 leading-relaxed">شرح مفصل للمهندس عبد الناصر حول تأمين السيرفرات ضد الاختراقات.</p>
+                </div>
+            </div>
+
+            <div class="video-card opacity-40 border-dashed">
+                <div class="aspect-video bg-slate-800 flex items-center justify-center text-5xl">🔒</div>
+                <div class="p-5">
+                    <h3 class="text-xl font-bold mt-2">اختبار الاختراق المتقدم</h3>
+                    <p class="text-gray-400 text-sm mt-3">سيتم رفع المحتوى فور اعتماده من الأكاديمية.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center mt-20 text-gray-600 font-mono text-xs italic">
+        Systems secured by: Abdelnaseer Pro Security Lab
+    </footer>
+</body>
+</html>
