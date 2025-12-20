@@ -15,6 +15,7 @@
         .input-box:focus { border-color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
         .social-btn { transition: 0.3s; display: flex; align-items: center; gap: 8px; font-size: 14px; }
         .social-btn:hover { transform: translateY(-3px); color: #3b82f6; }
+        .comment-scroll { max-height: 500px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #3b82f6 #020617; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center py-10 px-4 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-950 to-slate-950">
@@ -52,10 +53,6 @@
                     <i class="fab fa-whatsapp text-2xl"></i>
                     <span class="font-bold">Contact 1</span>
                 </a>
-                <a href="https://wa.me/201098181296" target="_blank" class="social-btn text-green-400 hover:text-green-300">
-                    <i class="fab fa-whatsapp text-2xl"></i>
-                    <span class="font-bold">Contact 2</span>
-                </a>
                 <a href="https://facebook.com/Abdelnaseer.Talat" target="_blank" class="social-btn text-blue-500 hover:text-blue-400">
                     <i class="fab fa-facebook text-2xl"></i>
                     <span class="font-bold">Facebook Profile</span>
@@ -64,85 +61,139 @@
         </div>
     </div>
 
-    <div class="glass w-full max-w-md rounded-[35px] p-8 shadow-2xl border-t-4 border-blue-500">
-        <div class="flex justify-around mb-8 border-b border-slate-800 pb-2">
-            <button onclick="toggleAuth('login')" id="login-tab" class="text-blue-500 border-b-2 border-blue-500 pb-2 font-black transition-all">Login</button>
-            <button onclick="toggleAuth('signup')" id="signup-tab" class="text-gray-500 pb-2 font-black transition-all">Sign Up</button>
+    <div class="flex flex-col md:flex-row gap-6 w-full max-w-4xl justify-center items-stretch">
+        
+        <div class="glass p-6 rounded-[35px] flex flex-col justify-around items-center min-w-[150px] border-l-4 border-blue-500">
+            <div class="text-center">
+                <i class="fas fa-thumbs-up text-3xl text-blue-500 mb-2"></i>
+                <p id="likes-count" class="text-2xl font-black">12,420</p>
+                <p class="text-[10px] uppercase text-gray-500">أعجبني</p>
+            </div>
+            <div class="h-[1px] w-full bg-slate-800 my-4"></div>
+            <div class="text-center">
+                <i class="fas fa-thumbs-down text-3xl text-gray-600 mb-2"></i>
+                <p id="dislikes-count" class="text-2xl font-black">18</p>
+                <p class="text-[10px] uppercase text-gray-500">لم يعجبني</p>
+            </div>
         </div>
 
-        <h3 id="form-title" class="text-2xl font-bold mb-8 text-center uppercase tracking-widest">Student Portal</h3>
-
-        <div class="space-y-5">
-            <input type="email" id="email" placeholder="Email Address" class="w-full input-box p-4 rounded-2xl outline-none">
-            <input type="password" id="pass" placeholder="Password" class="w-full input-box p-4 rounded-2xl outline-none">
-            <button id="main-btn" data-mode="login" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black text-xl transition-all shadow-lg shadow-blue-500/20">Sign In</button>
+        <div class="glass flex-1 rounded-[35px] p-8 shadow-2xl border-t-4 border-blue-500">
+            <div class="flex justify-around mb-8 border-b border-slate-800 pb-2">
+                <button onclick="toggleAuth('login')" id="login-tab" class="text-blue-500 border-b-2 border-blue-500 pb-2 font-black transition-all">Login</button>
+                <button onclick="toggleAuth('signup')" id="signup-tab" class="text-gray-500 pb-2 font-black transition-all">Sign Up</button>
+            </div>
+            <h3 id="form-title" class="text-2xl font-bold mb-8 text-center uppercase tracking-widest">Student Portal</h3>
+            <div class="space-y-5">
+                <input type="email" id="email" placeholder="Email Address" class="w-full input-box p-4 rounded-2xl outline-none">
+                <input type="password" id="pass" placeholder="Password" class="w-full input-box p-4 rounded-2xl outline-none">
+                <button id="main-btn" data-mode="login" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black text-xl transition-all">Sign In</button>
+            </div>
         </div>
+    </div>
 
-        <div class="mt-8 flex flex-col items-center gap-4 border-t border-slate-800 pt-6">
-            <p class="text-gray-500 text-xs uppercase tracking-widest italic">Or Quick Access</p>
-            <button id="google-login-btn" class="bg-white p-3 rounded-full hover:scale-110 transition shadow-lg">
-                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/actionbar/google.svg" width="24">
-            </button>
+    <div class="w-full max-w-4xl mt-20 px-4">
+        <h3 class="text-3xl font-black text-blue-500 mb-8 text-center uppercase tracking-widest">Student Reviews</h3>
+        <div id="comment-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 comment-scroll p-2">
+            </div>
+        
+        <div class="glass mt-10 p-8 rounded-[35px] border-t-4 border-blue-400">
+            <h4 class="text-xl font-bold mb-4 text-center">سيب رأيك عن الموقع</h4>
+            <div class="flex flex-col gap-4">
+                <input type="text" id="rev-name" placeholder="اسمك بالكامل" class="input-box p-3 rounded-xl outline-none">
+                <textarea id="rev-text" placeholder="اكتب رأيك هنا..." rows="2" class="input-box p-3 rounded-xl outline-none"></textarea>
+                <button onclick="submitReview()" class="bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-bold transition-all">إرسال الرأي</button>
+            </div>
         </div>
     </div>
 
     <footer class="mt-20 text-gray-700 text-[10px] font-mono tracking-widest uppercase">Abdelnaseer Pro - Secure Platform 2025 ©</footer>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyDdJoav1YkTyldp5_Z8z7x_PPxwwr09Z88",
-            authDomain: "abdelnaseer-talat-pro.firebaseapp.com",
-            projectId: "abdelnaseer-talat-pro",
-            storageBucket: "abdelnaseer-talat-pro.firebasestorage.app",
-            messagingSenderId: "762013161912",
-            appId: "1:762013161912:web:7f5a3b8088ce71112f174d"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const googleProvider = new GoogleAuthProvider();
-
-        // --- 1. Fast Dynamic Traffic Counter ---
-        function updateLiveStats() {
-            const totalElem = document.getElementById('total-visitors');
-            const activeElem = document.getElementById('active-users');
-            
-            // بداية الأرقام الكبيرة
+        // --- 1. العدادات السريعة (زوار + لايكات) ---
+        function initStats() {
             let total = parseInt(localStorage.getItem('fake_total')) || 102000;
             let active = parseInt(localStorage.getItem('fake_active')) || 8560;
-            
-            // زيادة فورية عند تحميل الصفحة
-            total += Math.floor(Math.random() * 50) + 50;
-            
-            localStorage.setItem('fake_total', total);
-            localStorage.setItem('fake_active', active);
-            
-            totalElem.innerText = total.toLocaleString();
-            activeElem.innerText = active.toLocaleString();
+            let likes = parseInt(localStorage.getItem('fake_likes')) || 12420;
+
+            setInterval(() => {
+                total += Math.floor(Math.random() * 15) + 5;
+                if(active < 11500) active += Math.floor(Math.random() * 20) + 10;
+                likes += Math.floor(Math.random() * 2); // زيادة اللايكات ببطء
+
+                document.getElementById('total-visitors').innerText = total.toLocaleString();
+                document.getElementById('active-users').innerText = active.toLocaleString();
+                document.getElementById('likes-count').innerText = likes.toLocaleString();
+
+                localStorage.setItem('fake_total', total);
+                localStorage.setItem('fake_active', active);
+                localStorage.setItem('fake_likes', likes);
+            }, 1000);
         }
 
-        window.addEventListener('load', updateLiveStats);
+        // --- 2. نظام الكومنتات التلقائي ---
+        const initialComments = [
+            {n: "سلمى محمد احمد", c: "شكرا يا هندسه ربنا يخليك انك موفر كل حاجه مجانا بدون تكاليف ولا تعب"},
+            {n: "ابراهيم رمضان صالح", c: "شكرا يحبيبي ع تعبك بجد ربنا يجازيك خير"},
+            {n: "سوسو", c: "الموقع روعة بصراحة وكل شي فيه ممتاز بالتوفيق"},
+            {n: "عادل سيد", c: "بالتوفيق يحبيبي عاااش استمر"},
+            {n: "روضى", c: "مبارك يحبيبي ع النجاح دا"},
+            {n: "مينا يوسف", c: "شرح ولا أروع ومنصة سريعة جداً"},
+            {n: "هالة محمود", c: "أخيراً لقيت حد بيشرح الأمن السيبراني بذمة"},
+            {n: "ياسين علي", c: "بالتوفيق يا هندسة دايماً متميز"},
+            {n: "عمر خالد", c: "مجهود جبار ربنا يبارك فيك"},
+            {n: "سارة الليثي", c: "كل الشكر لك يا كاب عبد الناصر"},
+            {n: "حمزة فوزي", c: "الموقع تصميمه عالمي وسهل جداً"},
+            {n: "نورا حسن", c: "استفدت جداً من الشروحات المجانية"},
+            {n: "كريم مجدي", c: "عاش يا بطل، فخر للأكاديمية"},
+            {n: "مريم إيهاب", c: "موقع مرتب ومنظم جداً شكراً ليك"},
+            {n: "أنس رجب", c: "بالتوفيق وفي تزايد دايماً إن شاء الله"}
+        ];
 
-        // تحديث كل ثانية لضمان سرعة التزايد
-        setInterval(() => {
-            const totalElem = document.getElementById('total-visitors');
-            const activeElem = document.getElementById('active-users');
-            
-            let currentTotal = parseInt(localStorage.getItem('fake_total'));
-            let currentActive = parseInt(localStorage.getItem('fake_active'));
+        function loadComments() {
+            const container = document.getElementById('comment-container');
+            container.innerHTML = initialComments.map(comment => `
+                <div class="glass p-4 rounded-2xl border-l-2 border-blue-500 animate-fade-in">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-8 h-8 bg-blue-900 rounded-full flex items-center justify-center text-xs font-bold">${comment.n[0]}</div>
+                        <div>
+                            <p class="text-sm font-bold">${comment.n}</p>
+                            <p class="text-[9px] text-gray-500">${comment.n.split(' ')[0].toLowerCase()}2025@gmail.com</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-300 italic">"${comment.c}"</p>
+                </div>
+            `).join('');
+        }
 
-            // زيادة الزوار الكلي (5-15 زائر كل ثانية)
-            currentTotal += Math.floor(Math.random() * 11) + 5; 
-            
-            // زيادة المتصلين للوصول لـ 11500 ثم التذبذب عندها
-            if (currentActive < 11500) {
-                currentActive += Math.floor(Math.random() * 25) + 15; 
+        window.submitReview = () => {
+            alert('شكراً لك! سيتم مراجعة رأيك ونشره خلال ساعة.');
+            document.getElementById('rev-name').value = '';
+            document.getElementById('rev-text').value = '';
+        }
+
+        window.addEventListener('load', () => {
+            initStats();
+            loadComments();
+        });
+
+        // Toggle Auth (Login/Signup)
+        window.toggleAuth = (mode) => {
+            const title = document.getElementById('form-title');
+            const btn = document.getElementById('main-btn');
+            const lTab = document.getElementById('login-tab');
+            const sTab = document.getElementById('signup-tab');
+            if(mode === 'signup') {
+                title.innerText = "Join Academy";
+                btn.innerText = "Register Now";
+                sTab.className = "text-blue-500 border-b-2 border-blue-500 pb-2 font-black";
+                lTab.className = "text-gray-500 pb-2 font-black";
             } else {
-                currentActive += Math.floor(Math.random() * 11) - 5; 
+                title.innerText = "Student Portal";
+                btn.innerText = "Sign In";
+                lTab.className = "text-blue-500 border-b-2 border-blue-500 pb-2 font-black";
+                sTab.className = "text-gray-500 pb-2 font-black";
             }
-
-            localStorage.setItem('fake_total', currentTotal);
-            localStorage.setItem('fake_active', currentActive
+        };
+    </script>
+</body>
+</html>
