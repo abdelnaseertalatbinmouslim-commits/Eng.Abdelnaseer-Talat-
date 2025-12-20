@@ -25,7 +25,7 @@
         <div class="glass px-6 py-3 rounded-2xl border border-blue-500/20 text-center min-w-[140px]">
             <p class="text-gray-500 text-[10px] uppercase tracking-widest mb-1">Total Visitors</p>
             <div class="flex items-center justify-center gap-2">
-                <span id="total-visitors" class="text-2xl font-black text-white">38,420</span>
+                <span id="total-visitors" class="text-2xl font-black text-white">102,000</span>
                 <i class="fas fa-chart-line text-blue-500 text-xs"></i>
             </div>
         </div>
@@ -33,7 +33,7 @@
             <p class="text-gray-500 text-[10px] uppercase tracking-widest mb-1">Active Now</p>
             <div class="flex items-center justify-center gap-2">
                 <div class="w-2 h-2 bg-green-500 rounded-full animate-ping"></div>
-                <span id="active-users" class="text-2xl font-black text-green-400">4,812</span>
+                <span id="active-users" class="text-2xl font-black text-green-400">8,560</span>
             </div>
         </div>
     </div>
@@ -105,70 +105,44 @@
         const auth = getAuth(app);
         const googleProvider = new GoogleAuthProvider();
 
-        // 1. Fake Traffic Counter Script
+        // --- 1. Fast Dynamic Traffic Counter ---
         function updateLiveStats() {
             const totalElem = document.getElementById('total-visitors');
             const activeElem = document.getElementById('active-users');
-            let total = parseInt(localStorage.getItem('fake_total')) || 38420;
-            let active = parseInt(localStorage.getItem('fake_active')) || 4812;
-            total += Math.floor(Math.random() * 3) + 1;
-            active += Math.floor(Math.random() * 21) - 10;
-            if (active < 4500) active = 4800;
+            
+            // بداية الأرقام الكبيرة
+            let total = parseInt(localStorage.getItem('fake_total')) || 102000;
+            let active = parseInt(localStorage.getItem('fake_active')) || 8560;
+            
+            // زيادة فورية عند تحميل الصفحة
+            total += Math.floor(Math.random() * 50) + 50;
+            
             localStorage.setItem('fake_total', total);
             localStorage.setItem('fake_active', active);
+            
             totalElem.innerText = total.toLocaleString();
             activeElem.innerText = active.toLocaleString();
         }
+
         window.addEventListener('load', updateLiveStats);
+
+        // تحديث كل ثانية لضمان سرعة التزايد
         setInterval(() => {
+            const totalElem = document.getElementById('total-visitors');
             const activeElem = document.getElementById('active-users');
-            let currentActive = parseInt(activeElem.innerText.replace(/,/g, ''));
-            currentActive += Math.floor(Math.random() * 5) - 2;
-            activeElem.innerText = currentActive.toLocaleString();
-        }, 4000);
+            
+            let currentTotal = parseInt(localStorage.getItem('fake_total'));
+            let currentActive = parseInt(localStorage.getItem('fake_active'));
 
-        // 2. Auth Toggle
-        window.toggleAuth = (mode) => {
-            const title = document.getElementById('form-title');
-            const btn = document.getElementById('main-btn');
-            const loginTab = document.getElementById('login-tab');
-            const signupTab = document.getElementById('signup-tab');
-            if (mode === 'signup') {
-                title.innerText = "Join Academy";
-                btn.innerText = "Register Now";
-                btn.setAttribute('data-mode', 'signup');
-                btn.classList.replace('bg-blue-600', 'bg-green-600');
-                signupTab.className = "text-blue-500 border-b-2 border-blue-500 pb-2 font-black transition-all";
-                loginTab.className = "text-gray-500 pb-2 font-black transition-all";
+            // زيادة الزوار الكلي (5-15 زائر كل ثانية)
+            currentTotal += Math.floor(Math.random() * 11) + 5; 
+            
+            // زيادة المتصلين للوصول لـ 11500 ثم التذبذب عندها
+            if (currentActive < 11500) {
+                currentActive += Math.floor(Math.random() * 25) + 15; 
             } else {
-                title.innerText = "Student Portal";
-                btn.innerText = "Sign In";
-                btn.setAttribute('data-mode', 'login');
-                btn.classList.replace('bg-green-600', 'bg-blue-600');
-                loginTab.className = "text-blue-500 border-b-2 border-blue-500 pb-2 font-black transition-all";
-                signupTab.className = "text-gray-500 pb-2 font-black transition-all";
+                currentActive += Math.floor(Math.random() * 11) - 5; 
             }
-        };
 
-        // 3. Firebase Auth Actions
-        document.getElementById('google-login-btn').onclick = () => {
-            signInWithPopup(auth, googleProvider).then(() => { window.location.href = "dashboard.html"; });
-        };
-
-        document.getElementById('main-btn').onclick = () => {
-            const email = document.getElementById('email').value;
-            const pass = document.getElementById('pass').value;
-            const mode = document.getElementById('main-btn').getAttribute('data-mode');
-            if (mode === 'signup') {
-                createUserWithEmailAndPassword(auth, email, pass)
-                    .then(() => { alert("Welcome to the Academy!"); window.location.href = "dashboard.html"; })
-                    .catch((err) => alert(err.message));
-            } else {
-                signInWithEmailAndPassword(auth, email, pass)
-                    .then(() => { window.location.href = "dashboard.html"; })
-                    .catch((err) => alert("Login Failed: Check your email/password"));
-            }
-        };
-    </script>
-</body>
-</html>
+            localStorage.setItem('fake_total', currentTotal);
+            localStorage.setItem('fake_active', currentActive
