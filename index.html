@@ -26,15 +26,14 @@
         <div class="glass px-6 py-3 rounded-2xl border border-blue-500/20 text-center min-w-[140px]">
             <p class="text-gray-500 text-[10px] uppercase tracking-widest mb-1">Total Visitors</p>
             <div class="flex items-center justify-center gap-2">
-                <span id="total-visitors" class="text-2xl font-black text-white">102,000</span>
+                <span class="text-2xl font-black text-white">102,000</span>
                 <i class="fas fa-chart-line text-blue-500 text-xs"></i>
             </div>
         </div>
         <div class="glass px-6 py-3 rounded-2xl border border-green-500/20 text-center min-w-[140px]">
             <p class="text-gray-500 text-[10px] uppercase tracking-widest mb-1">Active Now</p>
             <div class="flex items-center justify-center gap-2">
-                <div class="w-2 h-2 bg-green-500 rounded-full animate-ping"></div>
-                <span id="active-users" class="text-2xl font-black text-green-400">8,560</span>
+                <div class="w-2 h-2 bg-green-500 rounded-full"></div> <span class="text-2xl font-black text-green-400">8,560</span>
             </div>
         </div>
     </div>
@@ -62,17 +61,16 @@
     </div>
 
     <div class="flex flex-col md:flex-row gap-6 w-full max-w-4xl justify-center items-stretch">
-        
         <div class="glass p-6 rounded-[35px] flex flex-col justify-around items-center min-w-[150px] border-l-4 border-blue-500">
             <div class="text-center">
                 <i class="fas fa-thumbs-up text-3xl text-blue-500 mb-2"></i>
-                <p id="likes-count" class="text-2xl font-black">12,420</p>
+                <p class="text-2xl font-black">12,420</p>
                 <p class="text-[10px] uppercase text-gray-500">أعجبني</p>
             </div>
             <div class="h-[1px] w-full bg-slate-800 my-4"></div>
             <div class="text-center">
                 <i class="fas fa-thumbs-down text-3xl text-gray-600 mb-2"></i>
-                <p id="dislikes-count" class="text-2xl font-black">18</p>
+                <p class="text-2xl font-black">18</p>
                 <p class="text-[10px] uppercase text-gray-500">لم يعجبني</p>
             </div>
         </div>
@@ -109,28 +107,7 @@
     <footer class="mt-20 text-gray-700 text-[10px] font-mono tracking-widest uppercase">Abdelnaseer Pro - Secure Platform 2025 ©</footer>
 
     <script type="module">
-        // --- 1. العدادات السريعة (زوار + لايكات) ---
-        function initStats() {
-            let total = parseInt(localStorage.getItem('fake_total')) || 102000;
-            let active = parseInt(localStorage.getItem('fake_active')) || 8560;
-            let likes = parseInt(localStorage.getItem('fake_likes')) || 12420;
-
-            setInterval(() => {
-                total += Math.floor(Math.random() * 15) + 5;
-                if(active < 11500) active += Math.floor(Math.random() * 20) + 10;
-                likes += Math.floor(Math.random() * 2); // زيادة اللايكات ببطء
-
-                document.getElementById('total-visitors').innerText = total.toLocaleString();
-                document.getElementById('active-users').innerText = active.toLocaleString();
-                document.getElementById('likes-count').innerText = likes.toLocaleString();
-
-                localStorage.setItem('fake_total', total);
-                localStorage.setItem('fake_active', active);
-                localStorage.setItem('fake_likes', likes);
-            }, 1000);
-        }
-
-        // --- 2. نظام الكومنتات التلقائي ---
+        // كود الكومنتات يظل ليعرض التعليقات الـ 15
         const initialComments = [
             {n: "سلمى محمد احمد", c: "شكرا يا هندسه ربنا يخليك انك موفر كل حاجه مجانا بدون تكاليف ولا تعب"},
             {n: "ابراهيم رمضان صالح", c: "شكرا يحبيبي ع تعبك بجد ربنا يجازيك خير"},
@@ -152,7 +129,7 @@
         function loadComments() {
             const container = document.getElementById('comment-container');
             container.innerHTML = initialComments.map(comment => `
-                <div class="glass p-4 rounded-2xl border-l-2 border-blue-500 animate-fade-in">
+                <div class="glass p-4 rounded-2xl border-l-2 border-blue-500">
                     <div class="flex items-center gap-3 mb-2">
                         <div class="w-8 h-8 bg-blue-900 rounded-full flex items-center justify-center text-xs font-bold">${comment.n[0]}</div>
                         <div>
@@ -171,12 +148,8 @@
             document.getElementById('rev-text').value = '';
         }
 
-        window.addEventListener('load', () => {
-            initStats();
-            loadComments();
-        });
+        window.addEventListener('load', loadComments);
 
-        // Toggle Auth (Login/Signup)
         window.toggleAuth = (mode) => {
             const title = document.getElementById('form-title');
             const btn = document.getElementById('main-btn');
