@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
-        body { font-family: 'Poppins', sans-serif; background-color: #020617; color: white; overflow-x: hidden; }
+        body { font-family: 'Poppins', sans-serif; background-color: #020617; color: white; overflow-x: hidden; -webkit-user-select: none; user-select: none; }
         .glow-text { text-shadow: 0 0 20px #3b82f6, 0 0 40px #1d4ed8; }
         .glass { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(59, 130, 246, 0.3); }
         .input-box { background: #010413; border: 1px solid #1e293b; transition: 0.3s; color: white; }
@@ -17,13 +17,9 @@
         .social-btn:hover { transform: translateY(-3px); color: #3b82f6; }
         .comment-scroll { max-height: 500px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #3b82f6 #020617; }
         
-        /* مخصص لمربع الفيديو الاحترافي */
         .video-container {
-            width: 100%;
-            max-width: 896px; /* مطابقة للـ max-w-4xl */
-            margin-bottom: 24px;
-            overflow: hidden;
-            border-radius: 35px;
+            width: 100%; max-width: 896px; margin-bottom: 24px;
+            overflow: hidden; border-radius: 35px;
             border: 2px solid rgba(59, 130, 246, 0.5);
             box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
         }
@@ -37,14 +33,15 @@
         <div class="glass px-6 py-3 rounded-2xl border border-blue-500/20 text-center min-w-[140px]">
             <p class="text-gray-500 text-[10px] uppercase tracking-widest mb-1">Total Visitors</p>
             <div class="flex items-center justify-center gap-2">
-                <span class="text-2xl font-black text-white">840,457</span>
+                <span id="total-v" class="text-2xl font-black text-white">840,457</span>
                 <i class="fas fa-chart-line text-blue-500 text-xs"></i>
             </div>
         </div>
         <div class="glass px-6 py-3 rounded-2xl border border-green-500/20 text-center min-w-[140px]">
             <p class="text-gray-500 text-[10px] uppercase tracking-widest mb-1">Active Now</p>
             <div class="flex items-center justify-center gap-2">
-                <div class="w-2 h-2 bg-green-500 rounded-full"></div> <span class="text-2xl font-black text-green-400">8,560</span>
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div> 
+                <span id="active-v" class="text-2xl font-black text-green-400">8,560</span>
             </div>
         </div>
     </div>
@@ -52,7 +49,6 @@
     <div class="video-container glass">
         <video autoplay muted loop playsinline class="w-full h-full object-cover">
             <source src="intro.mp4" type="video/mp4">
-            Your browser does not support the video tag.
         </video>
     </div>
 
@@ -100,17 +96,17 @@
             </div>
             <h3 id="form-title" class="text-2xl font-bold mb-8 text-center uppercase tracking-widest">Student Portal</h3>
             <div class="space-y-5">
-                <input type="email" id="email" placeholder="Email Address" class="w-full input-box p-4 rounded-2xl outline-none">
-                <input type="password" id="pass" placeholder="Password" class="w-full input-box p-4 rounded-2xl outline-none">
-                <button id="main-btn" data-mode="login" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black text-xl transition-all">Sign In</button>
+                <input type="email" id="email-field" placeholder="Email Address" class="w-full input-box p-4 rounded-2xl outline-none">
+                <input type="password" id="pass-field" placeholder="Password" class="w-full input-box p-4 rounded-2xl outline-none">
+                <button onclick="handleLoginRequest()" id="main-btn" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black text-xl transition-all shadow-lg shadow-blue-900/40">Sign In</button>
+                <p id="error-msg" class="text-red-500 text-sm text-center hidden font-bold mt-2">❌ البيانات غير صحيحة يا بطل!</p>
             </div>
         </div>
     </div>
 
     <div class="w-full max-w-4xl mt-20 px-4">
         <h3 class="text-3xl font-black text-blue-500 mb-8 text-center uppercase tracking-widest">Student Reviews</h3>
-        <div id="comment-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 comment-scroll p-2">
-            </div>
+        <div id="comment-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 comment-scroll p-2"></div>
         
         <div class="glass mt-10 p-8 rounded-[35px] border-t-4 border-blue-400">
             <h4 class="text-xl font-bold mb-4 text-center">سيب رأيك عن الموقع</h4>
@@ -122,10 +118,11 @@
         </div>
     </div>
 
-    <footer class="mt-20 text-gray-700 text-[10px] font-mono tracking-widest uppercase">Abdelnaseer Pro - Secure Platform 2025 ©</footer>
+    <footer class="mt-20 text-gray-700 text-[10px] font-mono tracking-widest uppercase text-center">Abdelnaseer Pro - Secure Platform 2025 ©</footer>
 
-    <script type="module">
-        const initialComments = [
+    <script>
+        // مصفوفة الكومنتات "مخفية" برمجياً
+        const encryptedData = [
             {n: "سلمى محمد احمد", c: "شكرا يا هندسه ربنا يخليك انك موفر كل حاجه مجانا بدون تكاليف ولا تعب"},
             {n: "ابراهيم رمضان صالح", c: "شكرا يحبيبي ع تعبك بجد ربنا يجازيك خير"},
             {n: "سوسو", c: "الموقع روعة بصراحة وكل شي فيه ممتاز بالتوفيق"},
@@ -145,13 +142,13 @@
 
         function loadComments() {
             const container = document.getElementById('comment-container');
-            container.innerHTML = initialComments.map(comment => `
+            container.innerHTML = encryptedData.map(comment => `
                 <div class="glass p-4 rounded-2xl border-l-2 border-blue-500">
                     <div class="flex items-center gap-3 mb-2">
                         <div class="w-8 h-8 bg-blue-900 rounded-full flex items-center justify-center text-xs font-bold">${comment.n[0]}</div>
                         <div>
                             <p class="text-sm font-bold">${comment.n}</p>
-                            <p class="text-[9px] text-gray-500">${comment.n.split(' ')[0].toLowerCase()}2025@gmail.com</p>
+                            <p class="text-[9px] text-gray-500">${Math.random().toString(36).substring(7)}@gmail.com</p>
                         </div>
                     </div>
                     <p class="text-xs text-gray-300 italic">"${comment.c}"</p>
@@ -159,13 +156,33 @@
             `).join('');
         }
 
+        // محاكاة الأرقام الحية
+        function startLiveStats() {
+            let active = 8560;
+            setInterval(() => {
+                active += Math.floor(Math.random() * 13) - 6;
+                document.getElementById('active-v').innerText = active.toLocaleString();
+            }, 2500);
+        }
+
+        // نظام تسجيل الدخول والتحويل
+        window.handleLoginRequest = () => {
+            const email = document.getElementById('email-field').value;
+            const pass = document.getElementById('pass-field').value;
+            const error = document.getElementById('error-msg');
+
+            if (email === "AbdelnaseerT@Gmail.com" && pass === "AbdelnaseerT123##") {
+                window.location.href = "dashboard.html";
+            } else {
+                error.classList.remove('hidden');
+            }
+        };
+
         window.submitReview = () => {
             alert('شكرا جبيب قلبي ع الكومنت العسل زيك.');
             document.getElementById('rev-name').value = '';
             document.getElementById('rev-text').value = '';
         }
-
-        window.addEventListener('load', loadComments);
 
         window.toggleAuth = (mode) => {
             const title = document.getElementById('form-title');
@@ -184,6 +201,14 @@
                 sTab.className = "text-gray-500 pb-2 font-black";
             }
         };
+
+        // حماية السورس كود
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.onkeydown = e => {
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
+        };
+
+        window.onload = () => { loadComments(); startLiveStats(); };
     </script>
 </body>
 </html>
