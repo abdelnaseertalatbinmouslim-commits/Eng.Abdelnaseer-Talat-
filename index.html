@@ -16,6 +16,17 @@
         .social-btn { transition: 0.3s; display: flex; align-items: center; gap: 8px; font-size: 14px; }
         .social-btn:hover { transform: translateY(-3px); color: #3b82f6; }
         .comment-scroll { max-height: 500px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #3b82f6 #020617; }
+        
+        /* مخصص لمربع الفيديو الاحترافي */
+        .video-container {
+            width: 100%;
+            max-width: 896px; /* مطابقة للـ max-w-4xl */
+            margin-bottom: 24px;
+            overflow: hidden;
+            border-radius: 35px;
+            border: 2px solid rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center py-10 px-4 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-950 to-slate-950">
@@ -36,6 +47,13 @@
                 <div class="w-2 h-2 bg-green-500 rounded-full"></div> <span class="text-2xl font-black text-green-400">8,560</span>
             </div>
         </div>
+    </div>
+
+    <div class="video-container glass">
+        <video autoplay muted loop playsinline class="w-full h-full object-cover">
+            <source src="intro.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
     </div>
 
     <div class="glass w-full max-w-4xl rounded-[40px] p-8 mb-10 flex flex-col md:flex-row items-center gap-8 text-left shadow-2xl shadow-blue-900/20">
@@ -107,7 +125,6 @@
     <footer class="mt-20 text-gray-700 text-[10px] font-mono tracking-widest uppercase">Abdelnaseer Pro - Secure Platform 2025 ©</footer>
 
     <script type="module">
-        // كود الكومنتات يظل ليعرض التعليقات الـ 15
         const initialComments = [
             {n: "سلمى محمد احمد", c: "شكرا يا هندسه ربنا يخليك انك موفر كل حاجه مجانا بدون تكاليف ولا تعب"},
             {n: "ابراهيم رمضان صالح", c: "شكرا يحبيبي ع تعبك بجد ربنا يجازيك خير"},
@@ -143,7 +160,7 @@
         }
 
         window.submitReview = () => {
-            alerta(شكرا جبيب قلبي ع الكومنت العسل زيك.');
+            alert('شكرا جبيب قلبي ع الكومنت العسل زيك.');
             document.getElementById('rev-name').value = '';
             document.getElementById('rev-text').value = '';
         }
