@@ -1,49 +1,121 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <title>لوحة محاضرات | Abdelnaseer Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Abdelnaseer Pro Academy</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap');
-        body { font-family: 'Cairo', sans-serif; background: #020617; color: white; }
-        .video-card { background: rgba(30, 41, 59, 0.5); border: 1px solid #1e40af; border-radius: 24px; overflow: hidden; transition: 0.3s; }
-        .video-card:hover { border-color: #3b82f6; transform: translateY(-5px); }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
+        body { font-family: 'Poppins', sans-serif; background-color: #020617; color: white; overflow-x: hidden; }
+        .glow-text { text-shadow: 0 0 20px #3b82f6, 0 0 40px #1d4ed8; }
+        .glass { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(59, 130, 246, 0.3); }
+        
+        /* انيميشن للفولدرات */
+        .folder-card { 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            cursor: pointer;
+            border-bottom: 4px solid #eab308;
+        }
+        .folder-card:hover { 
+            transform: translateY(-15px) scale(1.02); 
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+            background: rgba(30, 41, 59, 0.9);
+        }
+        .folder-icon {
+            filter: drop-shadow(0 0 15px rgba(234, 179, 8, 0.4));
+            transition: 0.3s;
+        }
+        .folder-card:hover .folder-icon {
+            filter: drop-shadow(0 0 25px rgba(234, 179, 8, 0.7));
+            transform: rotate(-5deg);
+        }
+        
+        /* حماية المحتوى */
+        body { -webkit-user-select: none; user-select: none; }
     </style>
 </head>
-<body class="p-6">
-    <nav class="max-w-7xl mx-auto flex justify-between items-center bg-slate-900/80 p-5 rounded-3xl border border-blue-900/50 mb-10 shadow-xl backdrop-blur-md">
-        <div class="text-2xl font-black text-blue-500">Abdelnaseer Pro</div>
-        <button onclick="window.location.href='index.html'" class="bg-red-600/20 text-red-500 border border-red-500/50 px-6 py-2 rounded-xl font-bold hover:bg-red-600 hover:text-white transition">خروج</button>
-    </nav>
+<body class="min-h-screen flex flex-col items-center py-12 px-4 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-900/30 via-slate-950 to-slate-950">
 
-    <div class="max-w-7xl mx-auto">
-        <h2 class="text-3xl font-black mb-8 border-r-4 border-blue-600 pr-4">محاضرات الأمن السيبراني 2025</h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="video-card shadow-lg shadow-blue-900/10">
-                <div class="aspect-video bg-black flex items-center justify-center">
-                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/tgbNymZ7vqY" frameborder="0" allowfullscreen></iframe>
-                </div>
-                <div class="p-5">
-                    <span class="text-blue-400 text-xs font-bold uppercase tracking-widest">المحاضرة الأولى</span>
-                    <h3 class="text-xl font-bold mt-2">أساسيات حماية السيرفرات</h3>
-                    <p class="text-gray-400 text-sm mt-3 leading-relaxed">شرح مفصل للمهندس عبد الناصر حول تأمين السيرفرات ضد الاختراقات.</p>
-                </div>
-            </div>
-
-            <div class="video-card opacity-40 border-dashed">
-                <div class="aspect-video bg-slate-800 flex items-center justify-center text-5xl">🔒</div>
-                <div class="p-5">
-                    <h3 class="text-xl font-bold mt-2">اختبار الاختراق المتقدم</h3>
-                    <p class="text-gray-400 text-sm mt-3">سيتم رفع المحتوى فور اعتماده من الأكاديمية.</p>
-                </div>
-            </div>
+    <header class="text-center mb-16">
+        <div class="inline-block px-4 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs font-bold uppercase tracking-widest mb-4 animate-pulse">
+            Secure Student Portal
         </div>
+        <h1 class="text-5xl md:text-6xl font-black text-white glow-text mb-4 uppercase tracking-tighter">
+            Available <span class="text-blue-500">Courses</span>
+        </h1>
+        <p class="text-gray-400 font-medium italic">Welcome back, Cap Abdelnaseer. Select a module to begin.</p>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
+        
+        <div class="glass folder-card p-10 rounded-[45px] text-center flex flex-col items-center">
+            <div class="folder-icon mb-6">
+                <i class="fas fa-folder text-9xl text-yellow-500"></i>
+            </div>
+            <h3 class="text-xl font-black text-white mb-2 uppercase tracking-wide">Cybersecurity basics</h3>
+            <div class="flex items-center gap-2 mb-4">
+                <span class="text-green-400 font-black text-3xl">$38</span>
+                <span class="text-gray-500 text-sm line-through">$120</span>
+            </div>
+            <p class="text-gray-400 text-xs mb-8 leading-relaxed">تعلم أساسيات الأمن السيبراني وحماية البيانات من الصفر حتى الاحتراف.</p>
+            <a href="https://wa.me/201098227150?text=يا كابتن ناصر عايز اشترك في كورس Cybersecurity basics" target="_blank" 
+               class="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-2xl font-black text-sm transition-all shadow-lg shadow-green-900/20 uppercase">
+                <i class="fab fa-whatsapp mr-2 text-lg"></i> اشتري الآن
+            </a>
+        </div>
+
+        <div class="glass folder-card p-10 rounded-[45px] text-center flex flex-col items-center">
+            <div class="folder-icon mb-6">
+                <i class="fas fa-folder text-9xl text-yellow-500"></i>
+            </div>
+            <h3 class="text-xl font-black text-white mb-2 uppercase tracking-wide">Design from scratch</h3>
+            <div class="flex items-center gap-2 mb-4">
+                <span class="text-green-400 font-black text-3xl">$15</span>
+                <span class="text-gray-500 text-sm line-through">$50</span>
+            </div>
+            <p class="text-gray-400 text-xs mb-8 leading-relaxed">احترف التصميم الجرافيكي وأدوات الإبداع لبناء هويتك البصرية الخاصة.</p>
+            <a href="https://wa.me/201098227150?text=يا كابتن ناصر عايز اشترك في كورس Design from scratch" target="_blank" 
+               class="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-2xl font-black text-sm transition-all shadow-lg shadow-green-900/20 uppercase">
+                <i class="fab fa-whatsapp mr-2 text-lg"></i> اشتري الآن
+            </a>
+        </div>
+
+        <div class="glass folder-card p-10 rounded-[45px] text-center flex flex-col items-center">
+            <div class="folder-icon mb-6">
+                <i class="fas fa-folder text-9xl text-yellow-500"></i>
+            </div>
+            <h3 class="text-xl font-black text-white mb-2 uppercase tracking-wide">Hackers from scratch</h3>
+            <div class="flex items-center gap-2 mb-4">
+                <span class="text-green-400 font-black text-3xl">$20</span>
+                <span class="text-gray-500 text-sm line-through">$80</span>
+            </div>
+            <p class="text-gray-400 text-xs mb-8 leading-relaxed">دورة كاملة في اختبار الاختراق الأخلاقي والتعامل مع الثغرات الأمنية.</p>
+            <a href="https://wa.me/201098227150?text=يا كابتن ناصر عايز اشترك في كورس Hackers from scratch completely" target="_blank" 
+               class="w-full bg-green-600 hover:bg-green-700 text-white py-4 rounded-2xl font-black text-sm transition-all shadow-lg shadow-green-900/20 uppercase">
+                <i class="fab fa-whatsapp mr-2 text-lg"></i> اشتري الآن
+            </a>
+        </div>
+
     </div>
 
-    <footer class="text-center mt-20 text-gray-600 font-mono text-xs italic">
-        Systems secured by: Abdelnaseer Pro Security Lab
+    <div class="mt-20">
+        <a href="index.html" class="flex items-center gap-2 text-gray-600 hover:text-red-500 font-bold transition-all uppercase text-xs tracking-[0.3em]">
+            <i class="fas fa-sign-out-alt"></i> Logout System
+        </a>
+    </div>
+
+    <footer class="mt-12 text-gray-800 text-[10px] font-mono tracking-widest uppercase">
+        Encrypted Session - Abdelnaseer Pro © 2025
     </footer>
+
+    <script>
+        // حماية الصفحة من الفحص
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.onkeydown = e => {
+            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
+        };
+    </script>
 </body>
 </html>
