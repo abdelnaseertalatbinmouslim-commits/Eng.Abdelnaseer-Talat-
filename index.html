@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abdelnaseer Pro | Secure Systems</title>
+    <title>Abdelnaseer Pro | Official Platform</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -12,6 +12,9 @@
         .glow-text { text-shadow: 0 0 20px #3b82f6, 0 0 40px #1d4ed8; }
         .glass { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(59, 130, 246, 0.3); }
         .input-box { background: #010413; border: 1px solid #1e293b; transition: 0.3s; color: white; }
+        .input-box:focus { border-color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
+        .social-btn { transition: 0.3s; display: flex; align-items: center; gap: 8px; font-size: 14px; }
+        .social-btn:hover { transform: translateY(-3px); color: #3b82f6; }
         .comment-scroll { max-height: 500px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #3b82f6 #020617; }
         .video-container { width: 100%; max-width: 896px; margin-bottom: 24px; overflow: hidden; border-radius: 35px; border: 2px solid rgba(59, 130, 246, 0.5); box-shadow: 0 0 30px rgba(59, 130, 246, 0.2); }
     </style>
@@ -23,7 +26,10 @@
     <div class="flex flex-wrap justify-center gap-4 mb-10">
         <div class="glass px-6 py-3 rounded-2xl border border-blue-500/20 text-center min-w-[140px]">
             <p class="text-gray-500 text-[10px] uppercase tracking-widest mb-1">Total Visitors</p>
-            <span class="text-2xl font-black text-white italic">124,500</span>
+            <div class="flex items-center justify-center gap-2">
+                <span class="text-2xl font-black text-white italic">124,500</span>
+                <i class="fas fa-chart-line text-blue-500 text-xs"></i>
+            </div>
         </div>
         <div class="glass px-6 py-3 rounded-2xl border border-purple-500/20 text-center min-w-[140px]">
             <p class="text-gray-500 text-[10px] uppercase tracking-widest mb-1">Subscribers</p>
@@ -44,80 +50,112 @@
         </video>
     </div>
 
+    <div class="glass w-full max-w-4xl rounded-[40px] p-8 mb-10 flex flex-col md:flex-row items-center gap-8 text-left shadow-2xl shadow-blue-900/20">
+        <div class="relative">
+            <img src="IMG-20251206-WA0009.jpg" alt="Cap Abdelnaseer" class="w-48 h-48 rounded-full border-4 border-blue-600 object-cover shadow-2xl">
+            <div class="absolute bottom-2 right-2 bg-blue-600 px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-tight">Cap Abdelnaseer</div>
+        </div>
+        <div class="flex-1">
+            <h2 class="text-4xl font-black text-blue-400 mb-2">Cap Abdelnaseer Talat</h2>
+            <p class="text-xl font-bold leading-relaxed mb-6">Programmer, Cybersecurity Expert, Software Developer, and Lecturer at the Egypt Academy for Technological Sciences 2025.</p>
+            <div class="flex flex-wrap gap-5 border-t border-slate-800 pt-6">
+                <a href="https://wa.me/201098227150" target="_blank" class="social-btn text-green-500 hover:text-green-400">
+                    <i class="fab fa-whatsapp text-2xl"></i><span class="font-bold">Contact 1</span>
+                </a>
+                <a href="https://facebook.com/Abdelnaseer.Talat" target="_blank" class="social-btn text-blue-500 hover:text-blue-400">
+                    <i class="fab fa-facebook text-2xl"></i><span class="font-bold">Facebook Profile</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <div class="glass w-full max-w-md rounded-[35px] p-8 mb-20 shadow-2xl border-t-4 border-blue-500">
-        <h3 class="text-2xl font-bold mb-8 text-center uppercase tracking-widest">Authentication</h3>
+        <div class="flex justify-around mb-8 border-b border-slate-800 pb-2">
+            <button id="login-tab" class="text-blue-500 border-b-2 border-blue-500 pb-2 font-black">Login</button>
+            <button class="text-gray-500 pb-2 font-black opacity-50 cursor-not-allowed">Sign Up</button>
+        </div>
+        <h3 class="text-2xl font-bold mb-8 text-center uppercase tracking-widest">Secure Portal</h3>
         <div class="space-y-5">
-            <input type="email" id="_x_id" placeholder="Identity" class="w-full input-box p-4 rounded-2xl outline-none">
-            <input type="password" id="_x_tk" placeholder="Token" class="w-full input-box p-4 rounded-2xl outline-none">
-            <button id="_x_btn" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black text-xl transition-all shadow-lg shadow-blue-900/40">Authorize</button>
-            <p id="_x_log" class="text-red-500 text-sm text-center hidden font-bold mt-2">Invalid Session</p>
+            <input type="email" id="_0x_email" placeholder="Access Identity" class="w-full input-box p-4 rounded-2xl outline-none">
+            <input type="password" id="_0x_pass" placeholder="Security Token" class="w-full input-box p-4 rounded-2xl outline-none">
+            <button onclick="_0x_verify()" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black text-xl transition-all shadow-lg shadow-blue-900/40">Authorize</button>
+            <p id="error-msg" class="text-red-500 text-sm text-center hidden font-bold mt-2">❌ البيانات غير صحيحة يا بطل!</p>
         </div>
     </div>
 
     <div class="w-full max-w-4xl px-4">
-        <h3 class="text-3xl font-black text-blue-500 mb-8 text-center uppercase tracking-widest">System Logs (Reviews)</h3>
+        <h3 class="text-3xl font-black text-blue-500 mb-8 text-center uppercase tracking-widest">Student Reviews</h3>
         <div id="comment-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 comment-scroll p-2"></div>
     </div>
 
     <footer class="mt-20 text-gray-700 text-[10px] font-mono tracking-widest uppercase text-center">
-        Secure Protocol v.2.6 &copy; 2026 Virtual Environment <br>
-        <span class="text-blue-900">Sign: Developed by Eng. Abdel Nasser</span>
+        Abdelnaseer Pro - Secure Platform 2026 © <br>
+        <span class="text-blue-900">Developed by Eng. Abdel Nasser</span>
     </footer>
 
     <script>
-        // Encrypted Student Data
-        const _revData = [
-            {n: "Salma Mohamed", c: "Thanks Engineer for providing everything for free without effort."},
-            {n: "Ibrahim Ramadan", c: "Great work, may God reward you for your effort."},
-            {n: "Soso", c: "Excellent site, everything is perfect. Good luck."},
-            {n: "Adel Sayed", c: "Keep going hero, total respect."},
-            {n: "Rawda", c: "Congratulations on this huge success."},
-            {n: "Mina Youssef", c: "The fastest platform and amazing explanation."},
-            {n: "Hala Mahmoud", c: "Finally a real cybersecurity expert."}
+        // مصفوفة الكومنتات (محفوظة بالكامل)
+        const encryptedData = [
+            {n: "سلمى محمد احمد", c: "شكرا يا هندسه ربنا يخليك انك موفر كل حاجه مجانا بدون تكاليف ولا تعب"},
+            {n: "ابراهيم رمضان صالح", c: "شكرا يحبيبي ع تعبك بجد ربنا يجازيك خير"},
+            {n: "سوسو", c: "الموقع روعة بصراحة وكل شي فيه ممتاز بالتوفيق"},
+            {n: "عادل سيد", c: "بالتوفيق يحبيبي عاااش استمر"},
+            {n: "روضى", c: "مبارك يحبيبي ع النجاح دا"},
+            {n: "مينا يوسف", c: "شرح ولا أروع ومنصة سريعة جداً"},
+            {n: "هالة محمود", c: "أخيراً لقيت حد بيشرح الأمن السيبراني بذمة"},
+            {n: "ياسين علي", c: "بالتوفيق يا هندسة دايماً متميز"},
+            {n: "عمر خالد", c: "مجهود جبار ربنا يبارك فيك"}
         ];
 
-        function _loadRev() {
+        function loadComments() {
             const container = document.getElementById('comment-container');
-            container.innerHTML = _revData.map(r => `
+            container.innerHTML = encryptedData.map(comment => `
                 <div class="glass p-4 rounded-2xl border-l-2 border-blue-500">
-                    <p class="text-sm font-bold text-blue-400">${r.n}</p>
-                    <p class="text-xs text-gray-300 italic mt-1">"${r.c}"</p>
+                    <p class="text-sm font-bold text-blue-400">${comment.n}</p>
+                    <p class="text-xs text-gray-300 italic mt-1">"${comment.c}"</p>
                 </div>
             `).join('');
         }
 
-        // Logic (Auth & Stats)
-        const _k1 = "QWJkZWxuYXNlZXJUQEdtYWlsLmNvbQ=="; 
-        const _k2 = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8";
+        // إحصائيات حية (457 لـ 600)
+        function startLiveStats() {
+            let active = 457;
+            setInterval(() => {
+                let change = Math.floor(Math.random() * 21) - 10;
+                active = Math.min(Math.max(active + change, 457), 600);
+                document.getElementById('active-v').innerText = active;
+            }, 3000);
+        }
 
-        async function _hx(s) {
-            const encoder = new TextEncoder();
-            const data = encoder.encode(s);
-            const hash = await crypto.subtle.digest('SHA-256', data);
+        // تشفير SHA-256 والبيانات المشفرة
+        const _id_key = "QWJkZWxuYXNlZXJUQEdtYWlsLmNvbQ=="; // AbdelnaseerT@Gmail.com
+        const _tk_key = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"; // AbdelnaseerT123##
+
+        async function _0x_hash(s) {
+            const buffer = new TextEncoder().encode(s);
+            const hash = await crypto.subtle.digest('SHA-256', buffer);
             return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
-        document.getElementById('_x_btn').addEventListener('click', async () => {
-            const i = document.getElementById('_x_id').value;
-            const t = document.getElementById('_x_tk').value;
-            const l = document.getElementById('_x_log');
-            if (i === atob(_k1) && await _hx(t) === _k2) { window.location.href = "dashboard.html"; }
-            else { l.classList.remove('hidden'); setTimeout(() => l.classList.add('hidden'), 2000); }
-        });
+        async function _0x_verify() {
+            const i = document.getElementById('_0x_email').value;
+            const t = document.getElementById('_0x_pass').value;
+            const e = document.getElementById('error-msg');
+            const h = await _0x_hash(t);
 
-        (function _sc() {
-            let v = 457;
-            setInterval(() => {
-                v = Math.min(Math.max(v + (Math.floor(Math.random() * 21) - 10), 457), 600);
-                document.getElementById('active-v').innerText = v;
-            }, 2500);
-        })();
+            if (i === atob(_id_key) && h === _tk_key) {
+                window.location.href = "dashboard.html";
+            } else {
+                e.classList.remove('hidden');
+                setTimeout(() => e.classList.add('hidden'), 2500);
+            }
+        }
 
-        // Anti-Hack Shield
+        // الحماية
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.onkeydown = e => { if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73)) return false; };
 
-        window.onload = _loadRev;
+        window.onload = () => { loadComments(); startLiveStats(); };
     </script>
 </body>
 </html>
