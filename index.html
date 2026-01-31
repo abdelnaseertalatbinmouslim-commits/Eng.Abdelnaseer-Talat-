@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abdelnaseer Pro | Official Platform</title>
+    <title>Abdelnaseer Pro | Secure Systems</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -12,17 +12,8 @@
         .glow-text { text-shadow: 0 0 20px #3b82f6, 0 0 40px #1d4ed8; }
         .glass { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(10px); border: 1px solid rgba(59, 130, 246, 0.3); }
         .input-box { background: #010413; border: 1px solid #1e293b; transition: 0.3s; color: white; }
-        .input-box:focus { border-color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.2); }
-        .social-btn { transition: 0.3s; display: flex; align-items: center; gap: 8px; font-size: 14px; }
-        .social-btn:hover { transform: translateY(-3px); color: #3b82f6; }
         .comment-scroll { max-height: 500px; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #3b82f6 #020617; }
-        
-        .video-container {
-            width: 100%; max-width: 896px; margin-bottom: 24px;
-            overflow: hidden; border-radius: 35px;
-            border: 2px solid rgba(59, 130, 246, 0.5);
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
-        }
+        .video-container { width: 100%; max-width: 896px; margin-bottom: 24px; overflow: hidden; border-radius: 35px; border: 2px solid rgba(59, 130, 246, 0.5); box-shadow: 0 0 30px rgba(59, 130, 246, 0.2); }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center py-10 px-4 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-slate-950 to-slate-950">
@@ -32,16 +23,17 @@
     <div class="flex flex-wrap justify-center gap-4 mb-10">
         <div class="glass px-6 py-3 rounded-2xl border border-blue-500/20 text-center min-w-[140px]">
             <p class="text-gray-500 text-[10px] uppercase tracking-widest mb-1">Total Visitors</p>
-            <div class="flex items-center justify-center gap-2">
-                <span id="total-v" class="text-2xl font-black text-white">840,457</span>
-                <i class="fas fa-chart-line text-blue-500 text-xs"></i>
-            </div>
+            <span class="text-2xl font-black text-white italic">124,500</span>
+        </div>
+        <div class="glass px-6 py-3 rounded-2xl border border-purple-500/20 text-center min-w-[140px]">
+            <p class="text-gray-500 text-[10px] uppercase tracking-widest mb-1">Subscribers</p>
+            <span class="text-2xl font-black text-purple-400">14,340</span>
         </div>
         <div class="glass px-6 py-3 rounded-2xl border border-green-500/20 text-center min-w-[140px]">
             <p class="text-gray-500 text-[10px] uppercase tracking-widest mb-1">Active Now</p>
             <div class="flex items-center justify-center gap-2">
                 <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div> 
-                <span id="active-v" class="text-2xl font-black text-green-400">8,560</span>
+                <span id="active-v" class="text-2xl font-black text-green-400">457</span>
             </div>
         </div>
     </div>
@@ -52,163 +44,80 @@
         </video>
     </div>
 
-    <div class="glass w-full max-w-4xl rounded-[40px] p-8 mb-10 flex flex-col md:flex-row items-center gap-8 text-left shadow-2xl shadow-blue-900/20">
-        <div class="relative">
-            <img src="IMG-20251206-WA0009.jpg" alt="Cap Abdelnaseer" class="w-48 h-48 rounded-full border-4 border-blue-600 object-cover shadow-2xl">
-            <div class="absolute bottom-2 right-2 bg-blue-600 px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-tight">Cap Abdelnaseer</div>
-        </div>
-        <div class="flex-1">
-            <h2 class="text-4xl font-black text-blue-400 mb-2">Cap Abdelnaseer Talat</h2>
-            <p class="text-xl font-bold leading-relaxed mb-6">Programmer, Cybersecurity Expert, Software Developer, and Lecturer at the Egypt Academy for Technological Sciences 2025.</p>
-            
-            <div class="flex flex-wrap gap-5 border-t border-slate-800 pt-6">
-                <a href="https://wa.me/201098227150" target="_blank" class="social-btn text-green-500 hover:text-green-400">
-                    <i class="fab fa-whatsapp text-2xl"></i>
-                    <span class="font-bold">Contact 1</span>
-                </a>
-                <a href="https://facebook.com/Abdelnaseer.Talat" target="_blank" class="social-btn text-blue-500 hover:text-blue-400">
-                    <i class="fab fa-facebook text-2xl"></i>
-                    <span class="font-bold">Facebook Profile</span>
-                </a>
-            </div>
+    <div class="glass w-full max-w-md rounded-[35px] p-8 mb-20 shadow-2xl border-t-4 border-blue-500">
+        <h3 class="text-2xl font-bold mb-8 text-center uppercase tracking-widest">Authentication</h3>
+        <div class="space-y-5">
+            <input type="email" id="_x_id" placeholder="Identity" class="w-full input-box p-4 rounded-2xl outline-none">
+            <input type="password" id="_x_tk" placeholder="Token" class="w-full input-box p-4 rounded-2xl outline-none">
+            <button id="_x_btn" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black text-xl transition-all shadow-lg shadow-blue-900/40">Authorize</button>
+            <p id="_x_log" class="text-red-500 text-sm text-center hidden font-bold mt-2">Invalid Session</p>
         </div>
     </div>
 
-    <div class="flex flex-col md:flex-row gap-6 w-full max-w-4xl justify-center items-stretch">
-        <div class="glass p-6 rounded-[35px] flex flex-col justify-around items-center min-w-[150px] border-l-4 border-blue-500">
-            <div class="text-center">
-                <i class="fas fa-thumbs-up text-3xl text-blue-500 mb-2"></i>
-                <p class="text-2xl font-black">46,752</p>
-                <p class="text-[10px] uppercase text-gray-500">أعجبني</p>
-            </div>
-            <div class="h-[1px] w-full bg-slate-800 my-4"></div>
-            <div class="text-center">
-                <i class="fas fa-thumbs-down text-3xl text-gray-600 mb-2"></i>
-                <p class="text-2xl font-black">690</p>
-                <p class="text-[10px] uppercase text-gray-500">لم يعجبني</p>
-            </div>
-        </div>
-
-        <div class="glass flex-1 rounded-[35px] p-8 shadow-2xl border-t-4 border-blue-500">
-            <div class="flex justify-around mb-8 border-b border-slate-800 pb-2">
-                <button onclick="toggleAuth('login')" id="login-tab" class="text-blue-500 border-b-2 border-blue-500 pb-2 font-black transition-all">Login</button>
-                <button onclick="toggleAuth('signup')" id="signup-tab" class="text-gray-500 pb-2 font-black transition-all">Sign Up</button>
-            </div>
-            <h3 id="form-title" class="text-2xl font-bold mb-8 text-center uppercase tracking-widest">Student Portal</h3>
-            <div class="space-y-5">
-                <input type="email" id="email-field" placeholder="Email Address" class="w-full input-box p-4 rounded-2xl outline-none">
-                <input type="password" id="pass-field" placeholder="Password" class="w-full input-box p-4 rounded-2xl outline-none">
-                <button onclick="handleLoginRequest()" id="main-btn" class="w-full bg-blue-600 hover:bg-blue-700 py-4 rounded-2xl font-black text-xl transition-all shadow-lg shadow-blue-900/40">Sign In</button>
-                <p id="error-msg" class="text-red-500 text-sm text-center hidden font-bold mt-2">❌ البيانات غير صحيحة يا بطل!</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="w-full max-w-4xl mt-20 px-4">
-        <h3 class="text-3xl font-black text-blue-500 mb-8 text-center uppercase tracking-widest">Student Reviews</h3>
+    <div class="w-full max-w-4xl px-4">
+        <h3 class="text-3xl font-black text-blue-500 mb-8 text-center uppercase tracking-widest">System Logs (Reviews)</h3>
         <div id="comment-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 comment-scroll p-2"></div>
-        
-        <div class="glass mt-10 p-8 rounded-[35px] border-t-4 border-blue-400">
-            <h4 class="text-xl font-bold mb-4 text-center">سيب رأيك عن الموقع</h4>
-            <div class="flex flex-col gap-4">
-                <input type="text" id="rev-name" placeholder="اسمك بالكامل" class="input-box p-3 rounded-xl outline-none">
-                <textarea id="rev-text" placeholder="اكتب رأيك هنا..." rows="2" class="input-box p-3 rounded-xl outline-none"></textarea>
-                <button onclick="submitReview()" class="bg-blue-600 hover:bg-blue-700 py-3 rounded-xl font-bold transition-all">إرسال الرأي</button>
-            </div>
-        </div>
     </div>
 
-    <footer class="mt-20 text-gray-700 text-[10px] font-mono tracking-widest uppercase text-center">Abdelnaseer Pro - Secure Platform 2025 ©</footer>
+    <footer class="mt-20 text-gray-700 text-[10px] font-mono tracking-widest uppercase text-center">
+        Secure Protocol v.2.6 &copy; 2026 Virtual Environment <br>
+        <span class="text-blue-900">Sign: Developed by Eng. Abdel Nasser</span>
+    </footer>
 
     <script>
-        // مصفوفة الكومنتات "مخفية" برمجياً
-        const encryptedData = [
-            {n: "سلمى محمد احمد", c: "شكرا يا هندسه ربنا يخليك انك موفر كل حاجه مجانا بدون تكاليف ولا تعب"},
-            {n: "ابراهيم رمضان صالح", c: "شكرا يحبيبي ع تعبك بجد ربنا يجازيك خير"},
-            {n: "سوسو", c: "الموقع روعة بصراحة وكل شي فيه ممتاز بالتوفيق"},
-            {n: "عادل سيد", c: "بالتوفيق يحبيبي عاااش استمر"},
-            {n: "روضى", c: "مبارك يحبيبي ع النجاح دا"},
-            {n: "مينا يوسف", c: "شرح ولا أروع ومنصة سريعة جداً"},
-            {n: "هالة محمود", c: "أخيراً لقيت حد بيشرح الأمن السيبراني بذمة"},
-            {n: "ياسين علي", c: "بالتوفيق يا هندسة دايماً متميز"},
-            {n: "عمر خالد", c: "مجهود جبار ربنا يبارك فيك"},
-            {n: "سارة الليثي", c: "كل الشكر لك يا كاب عبد الناصر"},
-            {n: "حمزة فوزي", c: "الموقع تصميمه عالمي وسهل جداً"},
-            {n: "نورا حسن", c: "استفدت جداً من الشروحات المجانية"},
-            {n: "كريم مجدي", c: "عاش يا بطل، فخر للأكاديمية"},
-            {n: "مريم إيهاب", c: "موقع مرتب ومنظم جداً شكراً ليك"},
-            {n: "أنس رجب", c: "بالتوفيق وفي تزايد دايماً إن شاء الله"}
+        // Encrypted Student Data
+        const _revData = [
+            {n: "Salma Mohamed", c: "Thanks Engineer for providing everything for free without effort."},
+            {n: "Ibrahim Ramadan", c: "Great work, may God reward you for your effort."},
+            {n: "Soso", c: "Excellent site, everything is perfect. Good luck."},
+            {n: "Adel Sayed", c: "Keep going hero, total respect."},
+            {n: "Rawda", c: "Congratulations on this huge success."},
+            {n: "Mina Youssef", c: "The fastest platform and amazing explanation."},
+            {n: "Hala Mahmoud", c: "Finally a real cybersecurity expert."}
         ];
 
-        function loadComments() {
+        function _loadRev() {
             const container = document.getElementById('comment-container');
-            container.innerHTML = encryptedData.map(comment => `
+            container.innerHTML = _revData.map(r => `
                 <div class="glass p-4 rounded-2xl border-l-2 border-blue-500">
-                    <div class="flex items-center gap-3 mb-2">
-                        <div class="w-8 h-8 bg-blue-900 rounded-full flex items-center justify-center text-xs font-bold">${comment.n[0]}</div>
-                        <div>
-                            <p class="text-sm font-bold">${comment.n}</p>
-                            <p class="text-[9px] text-gray-500">${Math.random().toString(36).substring(7)}@gmail.com</p>
-                        </div>
-                    </div>
-                    <p class="text-xs text-gray-300 italic">"${comment.c}"</p>
+                    <p class="text-sm font-bold text-blue-400">${r.n}</p>
+                    <p class="text-xs text-gray-300 italic mt-1">"${r.c}"</p>
                 </div>
             `).join('');
         }
 
-        // محاكاة الأرقام الحية
-        function startLiveStats() {
-            let active = 8560;
+        // Logic (Auth & Stats)
+        const _k1 = "QWJkZWxuYXNlZXJUQEdtYWlsLmNvbQ=="; 
+        const _k2 = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8";
+
+        async function _hx(s) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(s);
+            const hash = await crypto.subtle.digest('SHA-256', data);
+            return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        document.getElementById('_x_btn').addEventListener('click', async () => {
+            const i = document.getElementById('_x_id').value;
+            const t = document.getElementById('_x_tk').value;
+            const l = document.getElementById('_x_log');
+            if (i === atob(_k1) && await _hx(t) === _k2) { window.location.href = "dashboard.html"; }
+            else { l.classList.remove('hidden'); setTimeout(() => l.classList.add('hidden'), 2000); }
+        });
+
+        (function _sc() {
+            let v = 457;
             setInterval(() => {
-                active += Math.floor(Math.random() * 13) - 6;
-                document.getElementById('active-v').innerText = active.toLocaleString();
+                v = Math.min(Math.max(v + (Math.floor(Math.random() * 21) - 10), 457), 600);
+                document.getElementById('active-v').innerText = v;
             }, 2500);
-        }
+        })();
 
-        // نظام تسجيل الدخول والتحويل
-        window.handleLoginRequest = () => {
-            const email = document.getElementById('email-field').value;
-            const pass = document.getElementById('pass-field').value;
-            const error = document.getElementById('error-msg');
-
-            if (email === "AbdelnaseerT@Gmail.com" && pass === "AbdelnaseerT123##") {
-                window.location.href = "dashboard.html";
-            } else {
-                error.classList.remove('hidden');
-            }
-        };
-
-        window.submitReview = () => {
-            alert('شكرا جبيب قلبي ع الكومنت العسل زيك.');
-            document.getElementById('rev-name').value = '';
-            document.getElementById('rev-text').value = '';
-        }
-
-        window.toggleAuth = (mode) => {
-            const title = document.getElementById('form-title');
-            const btn = document.getElementById('main-btn');
-            const lTab = document.getElementById('login-tab');
-            const sTab = document.getElementById('signup-tab');
-            if(mode === 'signup') {
-                title.innerText = "Join Academy";
-                btn.innerText = "Register Now";
-                sTab.className = "text-blue-500 border-b-2 border-blue-500 pb-2 font-black";
-                lTab.className = "text-gray-500 pb-2 font-black";
-            } else {
-                title.innerText = "Student Portal";
-                btn.innerText = "Sign In";
-                lTab.className = "text-blue-500 border-b-2 border-blue-500 pb-2 font-black";
-                sTab.className = "text-gray-500 pb-2 font-black";
-            }
-        };
-
-        // حماية السورس كود
+        // Anti-Hack Shield
         document.addEventListener('contextmenu', e => e.preventDefault());
-        document.onkeydown = e => {
-            if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74)) || (e.ctrlKey && e.keyCode == 85)) return false;
-        };
+        document.onkeydown = e => { if (e.keyCode == 123 || (e.ctrlKey && e.shiftKey && e.keyCode == 73)) return false; };
 
-        window.onload = () => { loadComments(); startLiveStats(); };
+        window.onload = _loadRev;
     </script>
 </body>
-            </html>
+</html>
